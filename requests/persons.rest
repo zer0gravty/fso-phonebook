@@ -1,0 +1,45 @@
+### Get all persons
+GET http://localhost:3001/api/persons
+Content-Type: application/json;
+### Get a person that exists (200)
+GET http://localhost:3001/api/persons/3
+Content-Type: application/json
+### Get a person that doesn't exist (404)
+GET http://localhost:3001/api/persons/99
+Content-Type: application/json
+### Delete a person (204)
+DELETE http://localhost:3001/api/persons/2
+Content-Type: application/json
+### Delete a person that doesn't exist (400)
+DELETE http://localhost:3001/api/persons/99
+Content-Type: application/json
+### Post a new person (201)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Some Gy",
+  "number": "234234234"
+}
+### Post a new person w/o name property
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "23423423234"
+}
+### Post a new person w/o number property
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Missing number guy"
+}
+### Post a person who already exists (400)
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "040-123456"
+}
