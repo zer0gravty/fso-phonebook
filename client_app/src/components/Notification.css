@@ -1,0 +1,17 @@
+.msg {
+    background-color: lightgreen;
+    border-left-width: 10px;
+    border-style: solid;
+    height: 30px;
+    margin: 5px 0px;
+    padding-left: 10px;
+    vertical-align: center;
+}
+
+.msg-error {
+    border-color: red;
+}
+
+.msg-success {
+    border-color: green;
+}

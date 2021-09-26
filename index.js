@@ -8,6 +8,8 @@ app.use(express.json());
 morgan.token('post-body', (req) => Object.keys(req.body).length > 0 ? JSON.stringify(req.body) : '');
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-body'));
 
+app.use(express.static('build'));
+
 let data = [
   {
     id: 1,
