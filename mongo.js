@@ -6,7 +6,7 @@ if (process.argv.length <= 2 || process.argv.length === 4) {
     process.exit(1);
 };
 
-const mongoUrl = `mongodb+srv://${configs.MONGO_USER}:${process.argv[2]}@${MONGO_URL}/${MONGO_DB}?retryWrites=true`;
+const mongoUrl = `mongodb+srv://${configs.MONGO_USER}:${process.argv[2]}@${configs.MONGO_URL}/${configs.MONGO_DB}?retryWrites=true`;
 mongoose.connect(mongoUrl);
 
 const personSchema = new mongoose.Schema({

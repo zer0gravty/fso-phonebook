@@ -1,48 +1,25 @@
 const express = require('express');
 const morgan = require('morgan');
+const Person = require('./models/person');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(express.json());
 
+// log server
 morgan.token('post-body', (req) => Object.keys(req.body).length > 0 ? JSON.stringify(req.body) : '');
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-body'));
 
+// serve static files from React build
 app.use(express.static('build'));
 
-let data = [
-  {
-    id: 1,
-    name: 'Arto Hellas',
-    number: '040-123456',
-  },
-  {
-    id: 2,
-    name: 'Ada Lovelace',
-    number: '39-44-5323523',
-  },
-  {
-    id: 3,
-    name: 'Dan Abramov',
-    number: '12-43-234345',
-  },
-  {
-    id: 4,
-    name: 'Mary Poppendieck',
-    number: '39-23-6423122',
-  },
-];
-
 app.get('/api/persons', (req, res) => {
-  res.json(data);
+  Person.find({}).then(people => res.json(people));
 });
 
 app.get('/api/persons/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
-  const person = data.find((person) => person.id === id);
-  person
-    ? res.json(person)
-    : res.status(404).json({ message: `Person not found with id of ${id}` });
+  Person.findById(id).then(person => res.json(person));
 });
 
 app.post('/api/persons', (req, res) => {
@@ -50,22 +27,12 @@ app.post('/api/persons', (req, res) => {
     return res.status(400).send({ error: 'Malformed body in request.' });
   }
 
-  const personExists = data
-    .map((person) => person.name)
-    .includes(req.body.name);
-  
-  if (personExists) {
-    return res.status(400).send({ error: 'Name must be unique' });
-  }
-
-  const newPerson = {
+  const newPerson = new Person({
     name: req.body.name,
     number: req.body.number,
-    id: Math.ceil(Math.random() * 10000),
-  };
+  });
 
-  data.push(newPerson);
-  res.status(201).json(newPerson);
+  newPerson.save().then(payload => res.status(201).json(payload));
 });
 
 app.delete('/api/persons/:id', (req, res) => {

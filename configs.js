@@ -6,11 +6,11 @@ const MONGO_DB_NAME = process.env.MONGO_DB_NAME;
 const MONGO_USER = process.env.MONGO_USER;
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
 
-const configs {
+const configs = {
     MONGO_DB_NAME,
     MONGO_URL,
     MONGO_USER,
     MONGO_PASSWORD,
 };
 
-export default configs;
+module.exports = configs;
