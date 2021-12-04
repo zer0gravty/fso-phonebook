@@ -10,13 +10,11 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filterBy, setFilterBy] = useState("");
-  const [id, setId] = useState(0);
   const [notification, setNotification] = useState({ message: null, type: '' })
 
   useEffect(() => {
-    phoneService.getNumbers().then((currentNumbers) => {
+    phoneService.getPeople().then((currentNumbers) => {
       setPersons(currentNumbers);
-      setId(currentNumbers.length);
     });
   }, []);
 
@@ -24,16 +22,14 @@ const App = () => {
     e.preventDefault();
     const exists = persons.find((person) => person.name === newName);
     if (exists) {
-      const update = window.confirm(
-        `${exists.name} is already added to phonebook. Update person's number?`
-      );
+      const update = window.confirm(`${exists.name} is already added to phonebook. Update person's number?`);
       if (update) {
         phoneService
           .updatePerson(exists.id, { ...exists, number: newNumber })
           .then((updatedPerson) => {
             setPersons(persons.filter(person => person !== exists).concat(updatedPerson));
-            setNewName("");
-            setNewNumber("");
+            setNewName('');
+            setNewNumber('');
             setNotification({ message: 'Person successfully updated.', type: 'success' });
             setTimeout(() => {
               setNotification({ message: null, type: '' });
@@ -48,14 +44,13 @@ const App = () => {
           });
       }
     } else {
-      const newPerson = { id: id + 1, name: newName, number: newNumber };
+      const newPerson = { name: newName, number: newNumber };
       phoneService
         .addPerson(newPerson)
         .then((newPerson) => {
           setPersons(persons.concat(newPerson));
-          setNewName("");
-          setNewNumber("");
-          setId(id + 1);
+          setNewName('');
+          setNewNumber('');
           setNotification({ message: 'Person successfully added.', type: 'success' });
           setTimeout(() => {
             setNotification({ message: null, type: '' });
