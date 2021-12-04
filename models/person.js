@@ -3,7 +3,7 @@ const configs = require("../configs");
 
 const { MONGO_PASSWORD, MONGO_DB_NAME, MONGO_URL, MONGO_USER } = configs;
 
-const URL = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_URL}/${MONGO_DB_NAME}?retryWrites=true`;
+const URL = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_URL}/${MONGO_DB_NAME}?retryWrites=true&w=majority`;
 
 console.log("Connecting to MongoDB...");
 mongoose
