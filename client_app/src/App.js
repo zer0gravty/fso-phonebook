@@ -36,7 +36,6 @@ const App = () => {
             }, 3000);
           })
           .catch((err) => {
-            console.error(`Error updating person.\n${err}`);
             setNotification({ message: `${err.response.data.error}`, type: 'error' });
             setTimeout(() => {
               setNotification({ message: null, type: '' });
