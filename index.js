@@ -16,6 +16,8 @@ const errorHandler = (err, _req, res, next) => {
 
   if (err.name === 'CastError') {
     res.status(400).json({ error: 'malformed id' });
+  } else if (err.name === 'ValidationError') {
+    res.status(400).json({ error: `${err}` })
   }
 
   next(err);
@@ -35,12 +37,6 @@ app.get('/api/persons/:id', (req, res, next) => {
 });
 
 app.post('/api/persons', (req, res, next) => {
-  if (!req.body.name) {
-    return res.status(400).json({ error: 'Malformed body in request: missing name.' });
-  } else if (!req.body.number) {
-    return res.status(400).json({ error: 'Malformed body in request: missing number.' });
-  }
-
   const newPerson = new Person({
     name: req.body.name,
     number: req.body.number,
@@ -61,7 +57,7 @@ app.put('/api/persons/:id', (req, res, next) => {
     number: req.body.number,
   }
   
-  Person.findByIdAndUpdate(req.params.id, person, { new: true })
+  Person.findByIdAndUpdate(req.params.id, person, { new: true, runValidators: true })
     .then(updatedPerson => res.status(201).json(updatedPerson))
     .catch(err => next(err));
 });

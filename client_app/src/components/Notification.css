@@ -1,5 +1,4 @@
 .msg {
-    background-color: lightgreen;
     border-left-width: 10px;
     border-style: solid;
     height: 30px;
@@ -10,8 +9,10 @@
 
 .msg-error {
     border-color: red;
+    background-color: pink;
 }
 
 .msg-success {
     border-color: green;
+    background-color: lightgreen;
 }

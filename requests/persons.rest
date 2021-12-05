@@ -31,8 +31,8 @@ POST http://localhost:3002/api/persons
 Content-Type: application/json
 
 {
-  "name": "Some Gy",
-  "number": "234234234"
+  "name": "Soasdf",
+  "number": "2342"
 }
 
 ### Post a new person w/o name property (400)

@@ -37,7 +37,7 @@ const App = () => {
           })
           .catch((err) => {
             console.error(`Error updating person.\n${err}`);
-            setNotification({ message: 'Error updating person. Person not in database.', type: 'error' });
+            setNotification({ message: `${err.response.data.error}`, type: 'error' });
             setTimeout(() => {
               setNotification({ message: null, type: '' });
             }, 3000);
@@ -56,7 +56,12 @@ const App = () => {
             setNotification({ message: null, type: '' });
           }, 3000);
         })
-        .catch((err) => console.error(`Error adding person.\n${err}`));
+        .catch((err) =>  {
+          setNotification({ message: `${err.response.data.error}`, type: 'error' })
+          setTimeout(() => {
+            setNotification({ message: null, type: '' });
+          }, 3000)
+        });
     }
   };
 
