@@ -1,18 +1,31 @@
+### Get info/smoke test
+GET http://localhost:3002/info
+Content-Type: text/html
+
 ### Get all persons
 GET http://localhost:3002/api/persons
 Content-Type: application/json;
-### Get a person that exists (200)
+
+### Get a person by id (200)
+GET http://localhost:3002/api/persons/61ac0c6f014adfbfbef6a13d
+Content-Type: application/json;
+
+### Get a person that does not exist (404)
 GET http://localhost:3002/api/persons/6155224db7f5f94e58eb1517
 Content-Type: application/json
-### Get a person that doesn't exist (404)
+
+### Get a person w/ a bad id  (400)
 GET http://localhost:3002/api/persons/99
 Content-Type: application/json
+
 ### Delete a person (204)
 DELETE http://localhost:3002/api/persons/2
 Content-Type: application/json
+
 ### Delete a person that doesn't exist (400)
 DELETE http://localhost:3002/api/persons/99
 Content-Type: application/json
+
 ### Post a new person (201)
 POST http://localhost:3002/api/persons
 Content-Type: application/json
@@ -21,14 +34,16 @@ Content-Type: application/json
   "name": "Some Gy",
   "number": "234234234"
 }
-### Post a new person w/o name property
+
+### Post a new person w/o name property (400)
 POST http://localhost:3002/api/persons
 Content-Type: application/json
 
 {
   "number": "23423423234"
 }
-### Post a new person w/o number property
+
+### Post a new person w/o number property (400)
 POST http://localhost:3002/api/persons
 Content-Type: application/json
 
